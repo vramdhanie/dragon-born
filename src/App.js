@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,17 +10,31 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <ExpandableSet startingSet={[{key:0}, {key:1}]}>
+          <div>Hello</div>
+        </ExpandableSet>
       </header>
     </div>
   );
 }
 
 export default App;
+
+
+function ExpandableSet({
+  startingSet,
+  itemTitle,
+  children
+})
+{
+  const [itemCount, setItemCount] = useState(0);
+  const [items, setItems] = useState(startingSet);
+
+  return(
+     <div className="expandable-set">
+        { items.map( item =>
+           <div className="expanded-item" id={item['key']} key={item['key']}> { children } </div>
+        )}
+     </div>
+  )
+}
