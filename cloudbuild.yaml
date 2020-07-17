@@ -10,4 +10,26 @@ steps:
     args: ["build"]
   - name: node
     entrypoint: "./node_modules/.bin/firebase"
-    args: ["deploy", "--project", "$PROJECT_ID", "--token", "$_TOKEN"]
+    args:
+      [
+        "target:apply",
+        "--project",
+        "$PROJECT_ID",
+        "--token",
+        "$_TOKEN",
+        "hosting",
+        "$BRANCH_NAME",
+        "$_SITE_ID",
+      ]  
+  - name: node
+    entrypoint: "./node_modules/.bin/firebase"
+    args:
+      [
+        "deploy",
+        "--project",
+        "$PROJECT_ID",
+        "--token",
+        "$_TOKEN",
+        "--only",
+        "hosting:$BRANCH_NAME",
+      ]
